@@ -12,10 +12,10 @@ def prompt(tool_name, command):
 
 def main():
     print("[DIR]")
-    prompt("mkdir", "mkdir coding tmp tools && mkdir coding/golang coding/java coding/nodejs coding/python")
+    prompt("mkdir", "mkdir ~/coding ~/tmp ~/tools && mkdir ~/coding/golang ~/coding/java ~/coding/nodejs ~/coding/python")
 
     print("\n\n[PROGRAMING LANGUAGE]")
-    prompt("go", "wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local")
+    prompt("go", "wget -c https://dl.google.com/go/go1.17.6.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local && rm go1.17.6.linux-amd64.tar.gz")
 
     print("\n\n[TOOL]")
     prompt("git", "sudo apt install git")
