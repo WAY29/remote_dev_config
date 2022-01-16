@@ -14,6 +14,11 @@ def prompt(tool_name, command):
 
 
 def main():
+    print("Configure installation scripts\n")
+    r = input("Choose install method [Ask before each installation/istall immmediately] :")
+    if r in ["I", "i", "Install", "install"]:
+        prompt = lambda _, command: system(command)
+
     print("[DIR]")
     prompt("mkdir", "mkdir ~/coding ~/tmp ~/tools && mkdir ~/coding/golang ~/coding/java ~/coding/nodejs ~/coding/python")
 
