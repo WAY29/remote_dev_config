@@ -13,6 +13,7 @@
 git加速                    # git config --global url."https://gitclone.com/".insteadOf https://
 
 工具:
+git                           # sudo apt install git
 zsh                          # sudo apt install zsh && chsh -s $(which zsh)
 fzf                           # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 lsd                          # wget https://github.91chi.fun//https://github.com//Peltoche/lsd/releases/download/0.20.1/lsd_0.20.1_amd64.deb && sudo dpkg -i lsd_0.20.1_amd64.deb && rm lsd_0.20.1_amd64.deb
