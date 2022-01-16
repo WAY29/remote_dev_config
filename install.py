@@ -25,7 +25,7 @@ def main():
     prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install")
     prompt("lsd", "wget https://github.91chi.fun//https://github.com//Peltoche/lsd/releases/download/0.20.1/lsd_0.20.1_amd64.deb && sudo dpkg -i lsd_0.20.1_amd64.deb && rm lsd_0.20.1_amd64.deb")
     prompt("fd", "sudo apt install -y fd-find")
-    prompt("ag", "sudo apt install s-y ilversearcher-ag")
+    prompt("ag", "sudo apt install -y silversearcher-ag")
     prompt("docker", "curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun")
     prompt("pipx", "apt install -y python3.8-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
