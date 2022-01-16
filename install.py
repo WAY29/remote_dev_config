@@ -39,11 +39,13 @@ def main():
     prompt("docker", "curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun")
     prompt("pipx", "apt-get install -qq -y python3.8-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
+    prompt("python tools", "sudo pip3 install ctfbox pyperclip")
 
     print("\n\n[XCLIP]")
     prompt("xclip", "apt-get install -qq -y xclip")
     prompt("write sshd_config", "sudo echo X11Forwarding yes >> /etc/ssh/sshd_config")
     prompt("restart sshd", "service sshd restart")
+    
 
     print("\n\n[INIT]")
     prompt("init config",
