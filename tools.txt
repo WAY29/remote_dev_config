@@ -1,0 +1,32 @@
+文件夹:
+.
+├── coding
+│   ├── golang
+│   ├── java
+│   ├── nodejs
+│   └── python
+├── tmp
+└── tools
+命令:                        # mkdir coding tmp tools && mkdir coding/golang coding/java coding/nodejs coding/python
+
+其他:
+git加速                    # git config --global url."https://gitclone.com/".insteadOf https://
+
+工具:
+zsh                          # sudo apt install zsh && chsh -s $(which zsh)
+fzf                           # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+lsd                          # wget https://github.91chi.fun//https://github.com//Peltoche/lsd/releases/download/0.20.1/lsd_0.20.1_amd64.deb && sudo dpkg -i lsd_0.20.1_amd64.deb && rm lsd_0.20.1_amd64.deb
+fd                           # sudo apt install fd-find
+ag                          # sudo apt install silversearcher-ag
+docker                   # curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun
+docker-compose  # sudo pipx install docker-compose
+
+语言环境:
+java
+golang                  # wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local
+python                  # ubuntu20自带，无需安装
+
+语言工具:
+pipx                       # apt install python3.8-venv && sudo pip3 install pipx
+pdm                      # sudo pipx install pdm
+vh                          # go install github.com/WAY29/version-helper@latest && mv $GOPATH/bin/version-helper $GOPATH/bin/vh
