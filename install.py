@@ -1,5 +1,5 @@
+from __future__ import print_function
 from os import system
-from sys import argv
 
 
 def prompt(tool_name, command):
