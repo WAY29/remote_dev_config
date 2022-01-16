@@ -36,3 +36,6 @@ def main():
     prompt("init config", "git clone https://github.com/WAY29/remote_dev_config ~/config && mv ~/config/* ~ && mv ~/config/.[^.]* ~ && rm -rf ~/config")
     prompt("chmod", "chmod +x ~/tmux.sh")
     prompt("init zsh", "zsh")
+
+
+main()
