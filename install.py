@@ -20,6 +20,7 @@ def main():
     print("\n\n[TOOL]")
     prompt("git", "sudo apt install git")
     prompt("zsh", "sudo apt install zsh && chsh -s $(which zsh)")
+    prompt("bat", "sudo apt install bat")
     prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install")
     prompt("lsd", "wget https://github.91chi.fun//https://github.com//Peltoche/lsd/releases/download/0.20.1/lsd_0.20.1_amd64.deb && sudo dpkg -i lsd_0.20.1_amd64.deb && rm lsd_0.20.1_amd64.deb")
     prompt("fd", "sudo apt install fd-find")
