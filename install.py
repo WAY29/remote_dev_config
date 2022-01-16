@@ -15,9 +15,10 @@ def prompt(tool_name, command):
 
 def main():
     print("Configure installation scripts\n")
-    r = input("Choose install method [Ask before each installation/istall immmediately] :")
+    r = input(
+        "Choose install method [Ask before each installation/istall immmediately] :")
     if r in ["I", "i", "Install", "install"]:
-        prompt = lambda _, command: system(command)
+        def prompt(_, command): return system(command)
 
     print("[DIR]")
     prompt("mkdir", "mkdir ~/coding ~/tmp ~/tools && mkdir ~/coding/golang ~/coding/java ~/coding/nodejs ~/coding/python")
@@ -40,12 +41,13 @@ def main():
     prompt("pipx", "apt-get install -qq -y python3.8-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
     prompt("python tools", "sudo pip3 install ctfbox pyperclip")
+    prompt("docker-compose", "sudo pipx install docker-compose")
 
     print("\n\n[XCLIP]")
     prompt("xclip", "apt-get install -qq -y xclip")
-    prompt("write sshd_config", "sudo echo X11Forwarding yes >> /etc/ssh/sshd_config")
+    prompt("write sshd_config",
+           "sudo echo X11Forwarding yes >> /etc/ssh/sshd_config")
     prompt("restart sshd", "service sshd restart")
-    
 
     print("\n\n[INIT]")
     prompt("init config",
