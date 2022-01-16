@@ -57,8 +57,9 @@ func! GetSelectedText()
     let result = getreg("x")
     return result
 endfunc
-"noremap <C-C> :call system('/mnt/c/Windows/System32/clip.exe', GetSelectedText())<CR>
-"noremap <C-X> :call system('/mnt/c/Windows/System32/clip.exe', GetSelectedText())<CR>gvx
+set clipboard=unnamed
+vnoremap <C-c> "*y
+
 
 "保存"
 nnoremap <c-s> :<c-u>update<cr>
