@@ -32,5 +32,6 @@ def main():
     prompt("gitclone", 'git config --global url."https://gitclone.com/".insteadOf https://')
 
     print("\n\n[INIT]")
-    prompt("init config", "git clone https://github.com/WAY29/remote_dev_config ~/config && mv ~/config/.[^.]* . && rm -rf ~/config")
+    prompt("init config", "git clone https://github.com/WAY29/remote_dev_config ~/config && mv ~/config/* ~ && mv ~/config/.[^.]* ~ && rm -rf ~/config")
+    prompt("chmod", "chmod +x ~/tmux.sh")
     prompt("init zsh", "zsh")
