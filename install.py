@@ -41,6 +41,7 @@ def main():
     prompt("pipx", "apt-get install -qq -y python3.8-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
     prompt("python tools", "sudo pip3 install ctfbox pyperclip")
+    prompt("ptipython", "sudo pip3 install ptipython")
     prompt("docker-compose", "sudo pipx install docker-compose")
 
     print("\n\n[XCLIP]")
