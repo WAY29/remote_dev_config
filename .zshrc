@@ -234,3 +234,6 @@ fi
 # zoxide
 eval "$(zoxide init --cmd c zsh)"
 alias cl='cq -l'
+
+# tabby current dir
+precmd () { echo -n " \x1b]1337;CurrentDir= $( pwd ) \x07 " }

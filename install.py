@@ -30,7 +30,7 @@ def main():
     prompt("apt update", "apt update")
     prompt("git", "sudo apt-get install -qq -y git")
     prompt("vim-gtk", "sudo apt-get install -qq -y vim-gtk")
-    prompt("gitclone", 'git config --global url."https://github.com.cnpmjs.org/".insteadOf https://github.com/')
+    prompt("gitclone in china", 'git config --global url."https://github.com.cnpmjs.org/".insteadOf https://github.com/')
     prompt("zsh", "sudo apt-get install -qq -y zsh && chsh -s $(which zsh)")
     prompt("bat", "sudo apt-get install -qq -y bat")
     prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install")
