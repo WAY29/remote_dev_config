@@ -15,32 +15,26 @@ def prompt(tool_name, command):
 
 def main():
     print("Configure installation scripts\n")
-    r = input(
-        "Choose install method [Ask before each installation/istall immmediately] :")
-    if r in ["I", "i", "Install", "install"]:
-        def prompt(_, command): return system(command)
 
     print("[DIR]")
     prompt("mkdir", "mkdir ~/coding ~/tmp ~/tools && mkdir ~/coding/golang ~/coding/java ~/coding/nodejs ~/coding/python")
 
     print("\n\n[PROGRAMING LANGUAGE]")
     prompt("go", "wget -c https://dl.google.com/go/go1.17.6.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local")
-
+    prompt("go proxy", "go env -w GOPROXY=https://goproxy.cn,direct")
     print("\n\n[TOOL]")
     prompt("apt update", "apt update")
     prompt("git", "sudo apt-get install -qq -y git")
     prompt("vim-gtk", "sudo apt-get install -qq -y vim-gtk")
-    prompt("gitclone in china", 'git config --global url."https://github.com.cnpmjs.org/".insteadOf https://github.com/')
+    prompt("gitclone in china", 'git config --global url."https://github.91chi.fun//https://github.com/".insteadOf https://github.com/')
     prompt("zsh", "sudo apt-get install -qq -y zsh && chsh -s $(which zsh)")
-    prompt("bat", "sudo apt-get install -qq -y bat")
-    prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install")
+    prompt("bat", "sudo apt-get install -qq -y batcat")
+    prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && cd ~/.fzf && FZF_VERSION=0.27.2 make install && mv bin/fzf /usr/local/bin/fzf")
     prompt("lsd", "wget https://github.91chi.fun//https://github.com//Peltoche/lsd/releases/download/0.20.1/lsd_0.20.1_amd64.deb && sudo dpkg -i lsd_0.20.1_amd64.deb && rm lsd_0.20.1_amd64.deb")
-    prompt("fd", "sudo apt-get install -qq -y fd-find")
-    prompt("ag", "sudo apt-get install -qq -y silversearcher-ag")
     prompt("docker", "curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun")
-    prompt("pipx", "apt-get install -qq -y python3.8-venv && sudo pip3 install pipx")
+    prompt("pipx", "apt-get install -qq -y python3-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
-    prompt("python tools", "sudo pip3 install ctfbox pyperclip")
+    prompt("python tools", "sudo python3.8 -m pip install ctfbox pyperclip")
     prompt("ptipython", "sudo pip3 install ptipython")
     prompt("docker-compose", "sudo pipx install docker-compose")
 
