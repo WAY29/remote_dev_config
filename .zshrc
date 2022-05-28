@@ -56,7 +56,7 @@ autoload -Uz _zinit
 
 # my_cd
 function my_cd() {
-    \cd $1 && lsd
+    z $1 && lsd
 }
 
 # my b for back number dirs
@@ -171,6 +171,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias c=my_cd
 alias cd=my_cd
+alias ci=zi
 alias b=my_b
 alias v=my_v
 alias q=exit
@@ -232,8 +233,7 @@ fi
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 # zoxide
-eval "$(zoxide init --cmd c zsh)"
-alias cl='cq -l'
+eval "$(zoxide init zsh)"
 
 # tabby current dir
 precmd () { echo -n " \x1b]1337;CurrentDir= $( pwd ) \x07 " }

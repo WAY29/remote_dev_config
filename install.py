@@ -28,9 +28,10 @@ def main():
     prompt("vim-gtk", "sudo apt-get install -qq -y vim-gtk")
     prompt("gitclone in china", 'git config --global url."https://github.91chi.fun//https://github.com/".insteadOf https://github.com/')
     prompt("zsh", "sudo apt-get install -qq -y zsh && chsh -s $(which zsh)")
-    prompt("bat", "sudo apt-get install -qq -y batcat")
+    prompt("zoxide", "curl -sS https://webinstall.dev/zoxide | bash")
+    prompt("bat", "curl -sS https://webinstall.dev/bat | bash")
     prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && cd ~/.fzf && FZF_VERSION=0.27.2 make install && mv bin/fzf /usr/local/bin/fzf")
-    prompt("lsd", "wget https://github.91chi.fun//https://github.com//Peltoche/lsd/releases/download/0.20.1/lsd_0.20.1_amd64.deb && sudo dpkg -i lsd_0.20.1_amd64.deb && rm lsd_0.20.1_amd64.deb")
+    prompt("lsd", "curl -sS https://webinstall.dev/lsd | bash")
     prompt("docker", "curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun")
     prompt("pipx", "apt-get install -qq -y python3-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
@@ -38,11 +39,11 @@ def main():
     prompt("ptipython", "sudo pip3 install ptipython")
     prompt("docker-compose", "sudo pipx install docker-compose")
 
-    print("\n\n[XCLIP]")
-    prompt("xclip", "apt-get install -qq -y xclip")
-    prompt("write sshd_config",
-           "sudo echo X11Forwarding yes >> /etc/ssh/sshd_config")
-    prompt("restart sshd", "service sshd restart")
+    # print("\n\n[XCLIP]")
+    # prompt("xclip", "apt-get install -qq -y xclip")
+    # prompt("write sshd_config",
+    #        "sudo echo X11Forwarding yes >> /etc/ssh/sshd_config")
+    # prompt("restart sshd", "service sshd restart")
 
     print("\n\n[INIT]")
     prompt("init config",
