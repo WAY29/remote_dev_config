@@ -33,6 +33,8 @@ def main():
     prompt("fzf", "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && cd ~/.fzf && FZF_VERSION=0.27.2 make install && mv bin/fzf /usr/local/bin/fzf")
     prompt("lsd", "curl -sS https://webinstall.dev/lsd | bash")
     prompt("docker", "curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun")
+    prompt("kubectl", '''curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"''')
+    prompt("minikube", '''curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && install minikube-linux-amd64 /usr/local/bin/minikube''')
     prompt("pipx", "apt-get install -qq -y python3-venv && sudo pip3 install pipx")
     prompt("pdm", "sudo pipx install pdm")
     prompt("python tools", "sudo python3.8 -m pip install ctfbox pyperclip")
