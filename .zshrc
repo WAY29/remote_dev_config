@@ -33,8 +33,6 @@ zinit light zsh-users/zsh-completions
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit ice lucid wait='0'
 zinit light djui/alias-tips
-zinit ice lucid wait'0'
-zinit light joshskidmore/zsh-fzf-history-search
 
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -144,8 +142,6 @@ alias ipython='ptipython'
 alias ls='lsd'
 alias sqlmap='python3 /home/longlone/tools/sqlmap/sqlmap.py'
 # sudo for me
-alias openvpn='sudo openvpn'
-alias thm='sudo openvpn /home/longlone/tryhackme/Mimei.ovpn &'
 alias sd='sudo service docker start'
 alias bak='test() { cp $1 $1".bak";}; test'
 alias attach='test() { sudo docker attach dwn_$1;}; test'
@@ -176,7 +172,7 @@ alias ci=zi
 alias b=my_b
 alias v=my_v
 alias q=exit
-if command -v ag > /dev/null; 
+if command -v ag > /dev/null 2>&1; 
 then
 alias g='ag'
 else
@@ -240,5 +236,12 @@ fi
 # zoxide
 eval "$(zoxide init zsh)"
 
-# tabby current dir
-precmd () { echo -n " \x1b]1337;CurrentDir= $( pwd ) \x07 " }
+# k8s
+if command -v minikube >/dev/null 2>&1;
+then
+source <(minikube completion zsh)
+fi
+if command -v kubectl >/dev/null 2>&1;
+then
+source <(kubectl completion zsh)
+fi
