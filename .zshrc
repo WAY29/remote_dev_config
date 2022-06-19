@@ -33,6 +33,8 @@ zinit light zsh-users/zsh-completions
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit ice lucid wait='0'
 zinit light djui/alias-tips
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -88,9 +90,9 @@ _fzf_compgen_dir() {
 
 # my v for preview
 function my_v() {
-fdfind -E .git -H -I | fzf --bind 'ctrl-e:execute(vim {})' \
-                           --bind 'ctrl-b:execute(bat {})' \
-                           --preview '[[ $(file --mime {}) =~ binary ]] &&
+fd -E .git -H -I | fzf --bind 'ctrl-e:execute(vim {})' \
+                        --bind 'ctrl-b:execute(bat {})' \
+                        --preview '[[ $(file --mime {}) =~ binary ]] &&
                  echo {} is a binary file ||
                  (bat --style=numbers --color=always {} ||
                   highlight -O ansi -l {} ||
@@ -132,7 +134,6 @@ setopt SHARE_HISTORY
 # alias tools
 alias reload_config='source ~/.zshrc'
 alias edit_config='vi ~/.zshrc'
-alias ag='ag --hidden -a'
 alias o='open'
 alias d='docker'
 alias dirmap='cd /home/longlone/tools/dirmap && python3 dirmap.py'
@@ -175,7 +176,13 @@ alias ci=zi
 alias b=my_b
 alias v=my_v
 alias q=exit
-alias fd='fdfind -E .git -H -I'
+if command -v ag > /dev/null; 
+then
+alias g='ag'
+else
+alias g='grep'
+fi
+alias fd='fd -E .git -H -I'
 alias ..='my_cd ..'
 alias ...='my_cd ../..'
 alias ....='my_cd ../../..'
@@ -183,7 +190,6 @@ alias mt='~/tmux.sh'
 alias no_history='unset HISTORY HISTFILE HISTSAVE HISTZONE HISTORY HISTLOG'
 alias uptty='stty raw -echo;fg'
 alias cat='batcat -n --theme=OneHalfDark'
-alias copy='clip.exe'
 alias vi='stty -ixon; vim'
 alias vim='stty -ixon; vim'
 
@@ -203,8 +209,7 @@ export GREP_COLOR='1;35'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # FZF
-export FZF_DEFAULT_COMMAND="ag -g ''"
-export FZF_ALT_C_COMMAND="echo .. & fdfind -H --type d --color=never"
+export FZF_ALT_C_COMMAND="echo .. & fd -H --type d --color=never"
 
 #C-R C-L
 bindkey ";5C" forward-word
