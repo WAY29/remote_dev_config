@@ -1,0 +1,12 @@
+[alias]
+	co = checkout
+	br = branch
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # edit_config = "!code ~/.gitconfig"
+    main = "!git checkout main || git checkout master"
+    fixup = "!git add -A && git commit --amend --no-edit"
+[push]
+	autoSetupRemote = true
+[user]
+	email = 41830147+WAY29@users.noreply.github.com
+	name = WAY29
