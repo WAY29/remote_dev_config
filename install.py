@@ -20,7 +20,10 @@ def main():
     prompt("mkdir", "mkdir ~/coding ~/tmp ~/tools && mkdir ~/coding/golang ~/coding/java ~/coding/nodejs ~/coding/python")
 
     print("\n\n[PROGRAMING LANGUAGE]")
-    prompt("go", "wget https://dl.google.com/go/go1.22.8.linux-amd64.tar.gz && sudo tar -xzf go1.22.8.linux-amd64.tar.gz -C /usr/local && rm go1.22.8.linux-amd64.tar.gz")
+    prompt("vfox", """curl -sSL https://raw.githubusercontent.com/version-fox/vfox/main/install.sh | bash""")
+    # prompt("go", "wget https://dl.google.com/go/go1.22.8.linux-amd64.tar.gz && sudo tar -xzf go1.22.8.linux-amd64.tar.gz -C /usr/local && rm go1.22.8.linux-amd64.tar.gz")
+    prompt("go", """vfox install golang@1.22.8 && echo 'eval "$(vfox activate bash)"' >> ~/.bashrc
+ && vfox use -g golang@1.22.8""")
     prompt("go proxy", "/usr/local/go/bin/go env -w GOPROXY=https://goproxy.cn,direct")
     print("\n\n[TOOL]")
     prompt("apt update", "sudo apt update")
