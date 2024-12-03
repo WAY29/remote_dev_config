@@ -7,6 +7,13 @@
     fixup = "!git add -A && git commit --amend --no-edit"
 [push]
 	autoSetupRemote = true
+	default = current
 [user]
 	email = 41830147+WAY29@users.noreply.github.com
 	name = WAY29
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[core]
+	editor = code --wait
