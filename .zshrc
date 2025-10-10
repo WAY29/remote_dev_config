@@ -120,6 +120,48 @@ alias dps='docker ps'
 alias drm='test() {docker stop $1 && docker rm $1;}; test'
 alias drun='test() {docker run -itd -p $1:80 $2;}; test'
 alias dup='docker-compose up -d --build'
+dvim() {
+  if [[ $# -ne 1 || "$1" != *:* ]]; then
+    echo "Usage: dvim <container_id_or_name>:<path_in_container>" >&2
+    echo "Example: dvim my-container:/etc/hosts" >&2
+    return 1
+  fi
+
+  local full_spec="$1"
+  local container_path="${full_spec#*:}"
+
+  if [[ -z "$container_path" ]]; then
+      echo "Error: Container path cannot be empty." >&2
+      return 1
+  fi
+
+  local temp_dir
+  temp_dir=$(mktemp -d)
+  trap 'rm -rf "$temp_dir"' EXIT
+
+  local local_file_path="$temp_dir/$(basename "$container_path")"
+
+  if ! docker cp "$full_spec" "$local_file_path" > /dev/null 2>&1; then
+    touch "$local_file_path"
+  fi
+
+  local original_hash
+  original_hash=$(md5sum "$local_file_path" | awk '{print $1}')
+
+  vim "$local_file_path"
+
+  local modified_hash
+  modified_hash=$(md5sum "$local_file_path" | awk '{print $1}')
+
+  if [[ "$original_hash" != "$modified_hash" ]]; then
+    if ! docker cp "$local_file_path" "$full_spec" > /dev/null 2>&1; then
+      echo "Error: Failed to copy file back to container '$full_spec'." >&2
+      return 1
+    fi
+  fi
+
+  return 0
+}
 # other alias
 alias ll='ls -al'
 alias grep='grep --color=auto'
