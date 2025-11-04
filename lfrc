@@ -1,0 +1,36 @@
+# settings
+set hidden!
+set mouse!
+
+# key bindings
+nmap J push 5j
+nmap K push 5k
+map d
+map x cut
+map dd delete
+nmap v visual
+nmap V invert
+map gf filter
+map gF setfilter ""
+map <delete> delete
+vmap <enter> visual-accept
+vmap v visual-accept
+nmap <esc> unselect
+cmap <esc> push <c-c>
+
+# command
+cmd delete trash
+cmd q quit
+cmd trash ${{
+   trash $fx
+}}
+map ad %{{
+  echo "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+map af %{{
+  printf "File Name: "
+  read ans
+  touch $ans
+}}
