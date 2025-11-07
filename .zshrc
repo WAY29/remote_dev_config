@@ -34,6 +34,8 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice lucid wait='0'
 zinit light Aloxaf/fzf-tab
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 zinit ice lucid wait='0'
 zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
 zinit ice lucid wait='0' atload"unalias x"
