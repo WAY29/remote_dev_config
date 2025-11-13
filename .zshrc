@@ -32,8 +32,6 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice lucid wait='0'
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-zinit ice lucid wait='0'
-zinit light Aloxaf/fzf-tab
 zinit ice lucid wait'0'
 zinit light joshskidmore/zsh-fzf-history-search
 zinit ice lucid wait='0'
@@ -56,11 +54,6 @@ autoload -Uz _zinit
 
 # p10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# my_cd
-function my_cd() {
-    z $1 && lsd
-}
 
 # fzf 
 # command for listing path candidates.
@@ -169,12 +162,11 @@ alias ll='ls -al'
 alias grep='grep --color=auto'
 alias cp='cp -i'
 alias mv='mv -i'
-alias c=my_cd
-alias cd=my_cd
 alias ci=zi
 alias b=my_b
 alias v=my_v
 alias q=exit
+alias rm=trash
 if command -v ag > /dev/null 2>&1; 
 then
 alias g='ag'
@@ -191,6 +183,10 @@ alias uptty='stty raw -echo;fg'
 alias cat='bat -n --theme=OneHalfDark'
 alias vi='stty -ixon; vim'
 alias vim='stty -ixon; vim'
+
+# bindkey forward-word or backward-word
+bindkey '^[b' backward-word
+bindkey '^[f' forward-word
 
 # tldr colors
 export TLDR_HEADER='magenta bold underline'
@@ -227,3 +223,18 @@ eval "$(zoxide init zsh)"
 # asdf
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$PATH:$ASDF_DATA_DIR/shims"
+
+# kitty ssh
+ssh() {
+  # 检查 TERM 环境变量是否为 'xterm-kitty'
+  # 这是 Kitty 终端一个非常明确的标识
+  if [ "$TERM" = "xterm-kitty" ]; then
+    # 如果是 Kitty，则调用 kitty +kitten ssh 并传递所有参数
+    kitty +kitten ssh "$@"
+  else
+    # 如果不是 Kitty，则使用 'command' 来调用原始的、未被函数覆盖的 ssh 命令
+    command ssh "$@"
+  fi
+}
+# copyparty
+alias copyparty="python3 /Users/lang/copyparty/copyparty-sfx.py"
