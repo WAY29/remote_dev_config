@@ -1,3 +1,6 @@
+# EDITOR
+export EDITOR="code"
+
 # proxy 
 export HTTP_PROXY="http://127.0.0.1:7890"
 export HTTPS_PROXY="http://127.0.0.1:7890"
@@ -185,6 +188,10 @@ alias vi='stty -ixon; vim'
 alias vim='stty -ixon; vim'
 
 # bindkey forward-word or backward-word
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey "^[[1;9D" beginning-of-line
+bindkey "^[[1;9C" end-of-line
 bindkey '^[b' backward-word
 bindkey '^[f' forward-word
 
@@ -224,6 +231,13 @@ eval "$(zoxide init zsh)"
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$PATH:$ASDF_DATA_DIR/shims"
 
+# brew
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+
+# tex
+export PATH="/Library/TeX/texbin:$PATH"
+
 # kitty ssh
 ssh() {
   # 检查 TERM 环境变量是否为 'xterm-kitty'
@@ -238,3 +252,12 @@ ssh() {
 }
 # copyparty
 alias copyparty="python3 /Users/lang/copyparty/copyparty-sfx.py"
+# cli
+alias ccs="cc-cli"
+
+# bun completions
+[ -s "/Users/lang/.bun/_bun" ] && source "/Users/lang/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
