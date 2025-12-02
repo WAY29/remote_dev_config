@@ -2,12 +2,15 @@
   process-unmapped-keys yes
 )
 
+;; =========================================================================
+;; 1. 物理按键定义 (Source) - 60键布局
+;; =========================================================================
 (defsrc
-  esc  caps lctl
-  1    2    9    0    -
-  y    u    i    o    p
-  h    j    k    l    ;
-  z    x    c    v
+  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '
+  z    x    c    v    b    n    m    ,    .    /
 )
 
 (defvar
@@ -18,46 +21,41 @@
 
 (defalias
   ;; =========================================
-  ;; 模式切换开关
+  ;; 模式切换 & 查询
   ;; =========================================
   to_win (layer-switch win-base)
   to_mac (layer-switch mac-base)
 
-  ;; =========================================
-  ;; 状态查询 (Caps + -) 
-  ;; =========================================
-  ;; 修正了之前 S-semicolon 的报错，使用 S-; 代表冒号
-  type_win (macro S-m o d e S-; spc S-w i n d o w s) 
-  type_mac (macro S-m o d e S-; spc S-m a c)         
+  ;; 状态打字 (Tab + -)
+  type_win (macro w i n) 
+  type_mac (macro m a c)         
 
   ;; =========================================
-  ;; Caps 键逻辑
+  ;; 导航动作 (区分系统)
   ;; =========================================
-  ;; 单击Esc，长按(或组合按)进入对应功能层
-  cap_w (tap-hold-press $long $long esc (layer-while-held win-layer))
-  cap_m (tap-hold-press $long $long esc (layer-while-held mac-layer))
-
-  ;; =========================================
-  ;; 动作映射：单词跳转 (Word Navigation)
-  ;; =========================================
-  ;; Windows 下，“向左/右跳一个单词”通常是 Ctrl + 方向键
+  ;; Windows: Ctrl + 方向键
   w_word_l (multi lctl left)
   w_word_r (multi lctl right)
   
-  ;; macOS 下，“向左/右跳一个单词”是 Option + 方向键
+  ;; macOS: Option + 方向键
   m_word_l (multi lalt left)
   m_word_r (multi lalt right)
 
   ;; =========================================
-  ;; 动作映射：修饰键与功能
+  ;; Caps 键逻辑 (纯修饰键)
   ;; =========================================
-  ;; [Windows 动作]
-  w_c (multi lctl c)   w_v (multi lctl v)   w_x (multi lctl x)   w_z (multi lctl z)
-  w_esc (multi lctl esc) 
+  ;; Win: 单击Esc，长按Ctrl
+  cap_w (tap-hold-press $long $long esc lctl)
+  
+  ;; Mac: 单击Esc，长按Cmd
+  cap_m (tap-hold-press $long $long esc lmet)
 
-  ;; [Mac 动作]
-  m_c (multi lmet c)   m_v (multi lmet v)   m_x (multi lmet x)   m_z (multi lmet z)
-  m_esc (multi lctl esc) 
+  ;; =========================================
+  ;; Tab 键逻辑 (TabFn)
+  ;; =========================================
+  ;; 关键点：Win模式下的Tab进入 win-fn 层，Mac模式下进入 mac-fn 层
+  tab_w (tap-hold-press $tap $hold tab (layer-while-held win-fn))
+  tab_m (tap-hold-press $tap $hold tab (layer-while-held mac-fn))
 )
 
 ;; =========================================================================
@@ -65,37 +63,39 @@
 ;; =========================================================================
 
 (deflayer win-base
-  lctl  @cap_w  lctl
-  1     2       9       0     -
-  y     u       i       o     p
-  h     j       k       l     ;
-  z     x       c       v
+  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =
+  @tab_w q    w    e    r    t    y    u    i    o    p    [    ]
+  @cap_w a    s    d    f    g    h    j    k    l    ;    '
+  z    x    c    v    b    n    m    ,    .    /
 )
 
 (deflayer mac-base
-  lctl  @cap_m  lctl
-  1     2       9       0     -
-  y     u       i       o     p
-  h     j       k       l     ;
-  z     x       c       v
+  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =
+  @tab_m q    w    e    r    t    y    u    i    o    p    [    ]
+  @cap_m a    s    d    f    g    h    j    k    l    ;    '
+  z    x    c    v    b    n    m    ,    .    /
 )
 
 ;; =========================================================================
-;; 功能层 (Function Layers) - 由 Caps 触发
+;; 功能层 (Fn Layers) - 按住 Tab 时激活
 ;; =========================================================================
 
-(deflayer win-layer
-  @w_esc _       _
-  _      _       @to_mac @to_win @type_win
-  home   @w_word_l @w_word_r end      _    ;; y=Home, u=Ctrl+Left, i=Ctrl+Right, o=End
-  left   down    up        right    _      ;; h/j/k/l 方向键
-  @w_z   @w_x    @w_c      @w_v
+;; 1. Windows Fn 层
+(deflayer win-fn
+  _    _    _    _    _    _    _    _    _    _    _    _     ;; F区保持
+  _    f1   f2   f3   f4   f5   f6   f7   f8   @to_mac @to_win @type_win _ ;; 数字键->F键 & 切换
+  _    _    _    _    _    _    home @w_word_l @w_word_r end _    _ _    ;; y=Home, u=CtrlLeft, i=CtrlRight, o=End
+  _    _    _    _    _    _    left down      up        right _    _      ;; h/j/k/l 方向键
+  _    _    _    _    _    _    _    _         _         _
 )
 
-(deflayer mac-layer
-  @m_esc _       _
-  _      _       @to_mac @to_win @type_mac
-  home   @m_word_l @m_word_r end      _    ;; y=Home, u=Opt+Left, i=Opt+Right, o=End
-  left   down    up        right    _      ;; h/j/k/l 方向键
-  @m_z   @m_x    @m_c      @m_v
+;; 2. macOS Fn 层
+(deflayer mac-fn
+  _    _    _    _    _    _    _    _    _    _    _    _     ;; F区保持
+  _    f1   f2   f3   f4   f5   f6   f7   f8   @to_mac @to_win @type_mac _ ;; 数字键->F键 & 切换
+  _    _    _    _    _    _    home @m_word_l @m_word_r end _    _ _    ;; y=Home, u=OptLeft, i=OptRight, o=End
+  _    _    _    _    _    _    left down      up        right _    _      ;; h/j/k/l 方向键
+  _    _    _    _    _    _    _    _         _         _
 )
