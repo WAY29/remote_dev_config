@@ -2,55 +2,100 @@
   process-unmapped-keys yes
 )
 
-;; 定义涉及到的物理按键
-;; 我们按照大概的键盘位置排列，方便阅读
 (defsrc
-  y    u    i    o
-  caps h    j    k    l
-  lctl
+  esc  caps lctl
+  1    2    9    0    -
+  y    u    i    o    p
+  h    j    k    l    ;
+  z    x    c    v
 )
 
 (defvar
-  tap-time 150
-  hold-time 200
+  tap 150
+  hold 200
+  long 2000
 )
 
 (defalias
-  ;; CapsLock: 点击是 Esc，长按是 Ctrl (保留原有习惯)
-  escctrl (tap-hold-press 2000 2000 esc lctl)
+  ;; =========================================
+  ;; 模式切换开关
+  ;; =========================================
+  to_win (layer-switch win-base)
+  to_mac (layer-switch mac-base)
 
-  ;; Left Ctrl: 也就是原本左下角的 Ctrl，现在变身为 Fn 层切换键
-  ;; layer-while-held: 按住时激活层，松开恢复
-  fn (layer-while-held fn-layer)
+  ;; =========================================
+  ;; 状态查询 (Caps + -) 
+  ;; =========================================
+  ;; 修正了之前 S-semicolon 的报错，使用 S-; 代表冒号
+  type_win (macro S-m o d e S-; spc S-w i n d o w s) 
+  type_mac (macro S-m o d e S-; spc S-m a c)         
 
-  ;; macOS 专用导航别名
-  ;; u: Option + Left (光标左移一个单词)
-  wleft A-left
+  ;; =========================================
+  ;; Caps 键逻辑
+  ;; =========================================
+  ;; 单击Esc，长按(或组合按)进入对应功能层
+  cap_w (tap-hold-press $long $long esc (layer-while-held win-layer))
+  cap_m (tap-hold-press $long $long esc (layer-while-held mac-layer))
+
+  ;; =========================================
+  ;; 动作映射：单词跳转 (Word Navigation)
+  ;; =========================================
+  ;; Windows 下，“向左/右跳一个单词”通常是 Ctrl + 方向键
+  w_word_l (multi lctl left)
+  w_word_r (multi lctl right)
   
-  ;; i: Option + Right (光标右移一个单词)
-  wright A-right
-  
-  ;; y: Command + Left (光标跳到行首 / Home)
-  home M-left
-  
-  ;; o: Command + Right (光标跳到行尾 / End)
-  end M-right
+  ;; macOS 下，“向左/右跳一个单词”是 Option + 方向键
+  m_word_l (multi lalt left)
+  m_word_r (multi lalt right)
+
+  ;; =========================================
+  ;; 动作映射：修饰键与功能
+  ;; =========================================
+  ;; [Windows 动作]
+  w_c (multi lctl c)   w_v (multi lctl v)   w_x (multi lctl x)   w_z (multi lctl z)
+  w_esc (multi lctl esc) 
+
+  ;; [Mac 动作]
+  m_c (multi lmet c)   m_v (multi lmet v)   m_x (multi lmet x)   m_z (multi lmet z)
+  m_esc (multi lctl esc) 
 )
 
-;; ---------------------------------------------------------
-;; Base Layer (默认层)
-;; ---------------------------------------------------------
-(deflayer base
-  _        _    _    _
-  @escctrl _    _    _    _
-  @fn
+;; =========================================================================
+;; 基础层 (Base Layers)
+;; =========================================================================
+
+(deflayer win-base
+  lctl  @cap_w  lctl
+  1     2       9       0     -
+  y     u       i       o     p
+  h     j       k       l     ;
+  z     x       c       v
 )
 
-;; ---------------------------------------------------------
-;; Fn Layer (按住左 Ctrl 时激活)
-;; ---------------------------------------------------------
-(deflayer fn-layer
-  @home    @wleft @wright @end    ;; y u i o -> 行首 词左 词右 行尾
-  _        left   down    up      right   ;; h j k l -> 左 下 上 右
-  _
+(deflayer mac-base
+  lctl  @cap_m  lctl
+  1     2       9       0     -
+  y     u       i       o     p
+  h     j       k       l     ;
+  z     x       c       v
+)
+
+;; =========================================================================
+;; 功能层 (Function Layers) - 由 Caps 触发
+;; =========================================================================
+
+(deflayer win-layer
+  @w_esc _       _
+  _      _       @to_mac @to_win @type_win
+  home   @w_word_l @w_word_r end      _    ;; y=Home, u=Ctrl+Left, i=Ctrl+Right, o=End
+  left   down    up        right    _      ;; h/j/k/l 方向键
+  @w_z   @w_x    @w_c      @w_v
+)
+
+(deflayer mac-layer
+  @m_esc _       _
+  _      _       @to_mac @to_win @type_mac
+  home   @m_word_l @m_word_r end      _    ;; y=Home, u=Opt+Left, i=Opt+Right, o=End
+  left   down    up        right    _      ;; h/j/k/l 方向键
+  @m_z   @m_x    @m_c      @m_v
 )
